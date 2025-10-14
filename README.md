@@ -2,7 +2,7 @@
 
 A full-stack IoT analytics platform  with LLM-powered natural language queries, automated alerting, and real-time dashboards. Built with Django, React, and MySQL, and containerized with Docker Compose. The system provides real-time environmental monitoring with a focus on water level tracking stations, and also includes weather stations and soil moisture monitoring.
 
-![Dashboard]<img width="1709" height="929" alt="image" src="https://github.com/user-attachments/assets/75a8a29a-70ef-453a-8813-9f33a34bcb66" />
+<img width="936" height="598" alt="image" src="https://github.com/user-attachments/assets/b43d143b-4b1b-44b8-a11d-5e0a92a675e7" />
 
 ## Features
 
