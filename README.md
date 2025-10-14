@@ -1,30 +1,30 @@
-# 🌆 Smart City Dashboard
+# Smart City Dashboard
 
 A full-stack IoT data visualization platform built with Django, React, and MySQL, containerized with Docker Compose. The system provides real-time insights into urban water levels and sensor analytics across multiple monitoring stations.
 
 ![Smart City Dashboard](https://via.placeholder.com/800x400?text=Replace+with+your+screenshot)
 <!-- Replace the URL above with your actual screenshot or GIF -->
 
-## 📑 Table of Contents
+## Table of Contents
 
-- [Features](#-features)
-- [Technologies Used](#-technologies-used)
-- [Installation and Setup](#️-installation-and-setup)
-- [Usage](#-usage)
-- [Testing](#-testing)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Contact](#-contact)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation and Setup](#installation-and-setup)
+- [Usage](#usage)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-## ✨ Features
+## Features
 
-- 🌊 Real-time water level monitoring from multiple locations
-- 📊 Interactive dashboard with charts and statistics
-- ⚙️ Full-stack architecture: Django REST API + React frontend
-- 🐳 Containerized environment for fast, reliable setup
-- 🧩 Easily extendable to include new sensor types and datasets
+- Real-time water level monitoring from multiple locations
+- Interactive dashboard with charts and statistics
+- Full-stack architecture: Django REST API + React frontend
+- Containerized environment for fast, reliable setup
+- Easily extendable to include new sensor types and datasets
 
-## 🧱 Technologies Used
+## Technologies Used
 
 | Category | Technology | Purpose |
 |----------|-----------|---------|
@@ -34,15 +34,15 @@ A full-stack IoT data visualization platform built with Django, React, and MySQL
 | **Containerization** | Docker, Docker Compose | Unified development environment |
 | **Version Control** | Git, GitHub | Source code management |
 
-## ⚙️ Installation and Setup
+## Installation and Setup
 
 This project is fully containerized using Docker, making setup fast and reliable.
 
-### 🔧 Prerequisites
+### Prerequisites
 
 You must have **Docker** and **Docker Compose** installed on your system.
 
-### 1️⃣ Clone the Repository
+### 1. Clone the Repository
 
 Clone the project to your local machine:
 
@@ -51,7 +51,7 @@ git clone https://github.com/Kargo59/dashboard_smartcity.git
 cd dashboard_smartcity
 ```
 
-### 2️⃣ Running the Application
+### 2. Running the Application
 
 Use Docker Compose to build and start both the frontend and backend services simultaneously:
 
@@ -59,7 +59,7 @@ Use Docker Compose to build and start both the frontend and backend services sim
 docker compose up --build
 ```
 
-### 3️⃣ Access the Dashboard
+### 3. Access the Dashboard
 
 This single command will:
 - Build the necessary Docker images for the frontend and backend
@@ -67,12 +67,12 @@ This single command will:
 - Automatically prepare everything for local development
 
 Once running:
-- 🖥️ **Frontend (User Interface)**: http://localhost:3000
-- ⚙️ **Backend API**: http://localhost:8000
+- **Frontend (User Interface)**: http://localhost:3000
+- **Backend API**: http://localhost:8000
 
-✅ **The Smart City Dashboard is now fully functional and ready to use!**
+The Smart City Dashboard is now fully functional and ready to use!
 
-### 🧹 Cleanup (Optional)
+### Cleanup (Optional)
 
 To stop and remove the running containers and networks when you're finished:
 
@@ -80,11 +80,11 @@ To stop and remove the running containers and networks when you're finished:
 docker compose down
 ```
 
-## 🧩 Usage
+## Usage
 
 Access the application in your browser or via API routes:
-- **Web app** → http://localhost:3000
-- **API endpoints** → http://localhost:8000/api/
+- **Web app**: http://localhost:3000
+- **API endpoints**: http://localhost:8000/api/
 
 ### Example Output / Interface:
 
@@ -98,7 +98,7 @@ Access the application in your browser or via API routes:
   }
 ```
 
-## 🧪 Testing
+## Testing
 
 If you've written tests, explain how to run them.
 
@@ -107,7 +107,7 @@ If you've written tests, explain how to run them.
 python -m unittest discover
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! To contribute, please follow these steps:
 
@@ -126,19 +126,19 @@ Contributions are welcome! To contribute, please follow these steps:
    ```
 5. **Open a Pull Request**
 
-## 📜 License
+## License
 
 Distributed under the MIT License. See the `LICENSE` file for more information.
 
-## 📬 Contact
+## Contact
 
 **Kamil P.**  
-💼 Full-Stack Data Engineer | IoT & Smart Infrastructure Analytics
+Full-Stack Data Engineer | IoT & Smart Infrastructure Analytics
 
-🔗 [GitHub](https://github.com/Kargo59) • [LinkedIn](#)
+[GitHub](https://github.com/Kargo59) • [LinkedIn](#)
 
 **Project Link**: https://github.com/Kargo59/dashboard_smartcity
 
 ---
 
-⭐ **If you found this project helpful or interesting, please consider giving it a star!**
+If you found this project helpful or interesting, please consider giving it a star!
