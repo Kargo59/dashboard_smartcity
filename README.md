@@ -1,6 +1,6 @@
 # Smart City Dashboard
 
-A full-stack IoT data visualization platform built with Django, React, and MySQL, containerized with Docker Compose. The system provides real-time insights into urban water levels and sensor analytics across multiple monitoring stations.
+A full-stack IoT analytics platform  with LLM-powered natural language queries, automated alerting, and real-time dashboards. Built with Django, React, and MySQL, and containerized with Docker Compose. The system provides real-time environmental monitoring with a focus on water level tracking stations, and also includes weather stations and soil moisture monitoring.
 
 ![Smart City Dashboard](https://via.placeholder.com/800x400?text=Replace+with+your+screenshot)
 <!-- Replace the URL above with your actual screenshot or GIF -->
@@ -18,21 +18,12 @@ A full-stack IoT data visualization platform built with Django, React, and MySQL
 
 ## Features
 
-- Real-time water level monitoring from multiple locations
-- Interactive dashboard with charts and statistics
-- Full-stack architecture: Django REST API + React frontend
+- Real-time monitoring of LoRaWAN and NB-IoT sensors 
+- Interactive dashboards
+- AI-powered chatbot for data analytics and insights (OpenAI API)
+- Automated alerting system
+- Full-stack architecture: Django + React
 - Containerized environment for fast, reliable setup
-- Easily extendable to include new sensor types and datasets
-
-## Technologies Used
-
-| Category | Technology | Purpose |
-|----------|-----------|---------|
-| **Frontend** | React, Axios, Recharts, TailwindCSS | Building the user interface |
-| **Backend** | Django, Django REST Framework | REST API and data handling |
-| **Database** | MySQL | Persistent data storage |
-| **Containerization** | Docker, Docker Compose | Unified development environment |
-| **Version Control** | Git, GitHub | Source code management |
 
 ## Installation and Setup
 
@@ -80,65 +71,6 @@ To stop and remove the running containers and networks when you're finished:
 docker compose down
 ```
 
-## Usage
-
-Access the application in your browser or via API routes:
-- **Web app**: http://localhost:3000
-- **API endpoints**: http://localhost:8000/api/
-
-### Example Output / Interface:
-
-```json
-> Request: /api/water-level/kusel
-> Response: {
-    "location": "Kusel",
-    "level": 2.31,
-    "unit": "m",
-    "timestamp": "2025-10-14T12:00:00Z"
-  }
-```
-
-## Testing
-
-If you've written tests, explain how to run them.
-
-```bash
-# Example for a Python project using unittest
-python -m unittest discover
-```
-
-## Contributing
-
-Contributions are welcome! To contribute, please follow these steps:
-
-1. **Fork the project**
-2. **Create your Feature Branch**
-   ```bash
-   git checkout -b feature/NewFeature
-   ```
-3. **Commit your Changes**
-   ```bash
-   git commit -m 'Add new feature'
-   ```
-4. **Push to the Branch**
-   ```bash
-   git push origin feature/NewFeature
-   ```
-5. **Open a Pull Request**
-
 ## License
 
 Distributed under the MIT License. See the `LICENSE` file for more information.
-
-## Contact
-
-**Kamil P.**  
-Full-Stack Data Engineer | IoT & Smart Infrastructure Analytics
-
-[GitHub](https://github.com/Kargo59) • [LinkedIn](#)
-
-**Project Link**: https://github.com/Kargo59/dashboard_smartcity
-
----
-
-If you found this project helpful or interesting, please consider giving it a star!
