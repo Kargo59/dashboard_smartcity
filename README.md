@@ -4,18 +4,6 @@ A full-stack IoT analytics platform  with LLM-powered natural language queries, 
 
 ![Dashboard]<img width="1709" height="929" alt="image" src="https://github.com/user-attachments/assets/75a8a29a-70ef-453a-8813-9f33a34bcb66" />
 
-
-## Table of Contents
-
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation and Setup](#installation-and-setup)
-- [Usage](#usage)
-- [Testing](#testing)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
 ## Features
 
 - Real-time monitoring of LoRaWAN and NB-IoT sensors 
@@ -73,4 +61,4 @@ docker compose down
 
 ## License
 
-Distributed under the MIT License. See the `LICENSE` file for more information.
+Distributed under the MIT License. 
