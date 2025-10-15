@@ -1,9 +1,13 @@
 # Smart City Dashboard
 
-A full-stack IoT analytics platform  with LLM-powered natural language queries, automated alerting, and real-time dashboards. Built with Django, React, and MySQL, and containerized with Docker Compose. The system provides real-time environmental monitoring with a focus on water level tracking stations, and also includes weather stations and soil moisture monitoring.
+A full-stack IoT analytics platform  with LLM-powered natural language queries, automated alerting, and real-time dashboards. Built with Django and React. The system provides real-time environmental monitoring with a focus on water level tracking stations, and also includes weather stations and soil moisture monitoring.
 
 
-<img src="https://github.com/user-attachments/assets/938b183e-761e-4963-b47b-e984fb098c85" alt="Dashboard Preview" width="500" />
+<img src="https://github.com/user-attachments/assets/938b183e-761e-4963-b47b-e984fb098c85" 
+     alt="Dashboard Preview" 
+     width="500"
+     style="border: 1px solid #d3d3d3; border-radius: 6px; padding: 4px;" />
+
 
 ## Features
 
