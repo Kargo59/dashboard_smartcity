@@ -1,35 +1,19 @@
 import requests
 from django.http import JsonResponse
-from django.db import connection
-import csv
 from django.views import View
-from influxdb_client import InfluxDBClient
-import os
-import json
-from collections import defaultdict
-from datetime import datetime, timedelta
-import re
-from django.http import HttpResponse
-import pandas as pd
-from django.shortcuts import render
-from sensor_data.models import HistoricalPrecipitation, ForecastedPrecipitation, Device, WeatherData, SoilMoistureReading, pHReading, waterLevelReading
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-import logging
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Avg
+from django.db.models.functions import TruncDate, TruncHour
+import logging
 from dotenv import load_dotenv
-import os
-#from .utils import ConstrainedDataAnalyzer
+from sensor_data.models import Device, waterLevelReading
 
-
-#load environment variables
+# Load environment variables
 load_dotenv()
 
 # Set up logging
 logger = logging.getLogger(__name__)
 
-#############################             water level data  - GET method    ###########################################
 
 class waterLevelDataView(View):
     def get(self, request, *args, **kwargs):
@@ -41,11 +25,11 @@ class waterLevelDataView(View):
             device_ids = {
                 "water_level_kv": "eui-a8404169c187e059-water-lvl-kv",
                 "water_level_rutsweiler": "6749E17352790049",
-                "water_level_kreimbach_kaulbach": "6749E17125480048",           #by brauerei
+                "water_level_kreimbach_kaulbach": "6749E17125480048",
                 "water_level_wolfstein": "6749D19427550061",
                 "water_level_lauterecken_1": "6749E17530450043",
                 "water_level_kreimbach_1": "6749E09866560038",
-                "water_level_kreimbach_3": "6749E09611440028",          # sensor Kreimbach_2 (Kreimbach) (in canal / drainage pipe) 
+                "water_level_kreimbach_3": "6749E09611440028",
                 "water_level_lohnweiler_1": "6749E17323330042",
                 "water_level_hinzweiler_1": "6749E17419910043",
                 "water_level_untersulzbach": "pegel_untersulzbach",
@@ -59,11 +43,7 @@ class waterLevelDataView(View):
                 "water_level_odenbach": "pegel_odenbach",
                 "water_level_niedermohr": "pegel_niedermohr",
                 "water_level_loellbach": "pegel_loellbach",
-                "water_level_lohnweiler_lauter_landlieben": "6749E17799680048",        # sensor Lohnweiler (Lauter), installed on June 30, 2025, next to the official sensor of SGD Sued 
-
-
-
-
+                "water_level_lohnweiler_lauter_landlieben": "6749E17799680048",
             }
 
             device_id = device_ids.get(query_type)
@@ -76,10 +56,9 @@ class waterLevelDataView(View):
                 return JsonResponse({"error": "Device not found"}, status=404)
 
             # Get the time range from the request
-            time_range = request.GET.get("time_range", "24h")  # Default to '24h'
+            time_range = request.GET.get("time_range", "24h")
             now = timezone.now()
 
-            # Calculate the time boundary
             if time_range == "24h":
                 time_boundary = now - timezone.timedelta(hours=24)
             elif time_range == "7d":
@@ -89,24 +68,46 @@ class waterLevelDataView(View):
             elif time_range == "365d":
                 time_boundary = now - timezone.timedelta(days=365)
             else:
-                time_boundary = now - timezone.timedelta(hours=24)  # Default to '24h' if invalid
+                time_boundary = now - timezone.timedelta(hours=24)
 
-            # Filter readings by timestamp
-            readings = waterLevelReading.objects.filter(device=device, timestamp__gte=time_boundary).order_by('timestamp')
+            # Base queryset
+            readings = waterLevelReading.objects.filter(device=device, timestamp__gte=time_boundary)
 
-            if readings.exists():
-                response_data = list(readings.values('timestamp', 'water_level_value'))
+            # Aggregate depending on range
+            if time_range in ["24h", "7d"]:
+                # Hourly averages
+                readings = (
+                    readings
+                    .annotate(period=TruncHour("timestamp"))
+                    .values("period")
+                    .annotate(avg_level=Avg("water_level_value"))
+                    .order_by("period")
+                )
+            else:
+                # Daily averages
+                readings = (
+                    readings
+                    .annotate(period=TruncDate("timestamp"))
+                    .values("period")
+                    .annotate(avg_level=Avg("water_level_value"))
+                    .order_by("period")
+                )
 
-                latest_reading = readings.last()
-                latest_battery = latest_reading.battery if latest_reading and latest_reading.battery is not None else None
+            if readings:
+                response_data = [
+                    {"timestamp": r["period"], "water_level_value": r["avg_level"]}
+                    for r in readings
+                ]
+
+                latest_reading = waterLevelReading.objects.filter(device=device).last()
+                latest_battery = getattr(latest_reading, "battery", None)
 
                 return JsonResponse({
                     "readings": response_data,
-                    "battery": latest_battery
+                    "battery": latest_battery,
                 }, safe=False)
             else:
                 return JsonResponse({"message": "No data available for the selected time period."}, status=204)
-
 
         except Exception as e:
             logger.error(f"Error in water level data: {str(e)}")
