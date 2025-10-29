@@ -20,7 +20,7 @@ A full-stack IoT analytics platform  with LLM-powered natural language queries, 
 
 ## Installation and Setup
 
-This project is fully containerized using Docker, making setup fast and reliable.
+This project is fully containerized using Docker.
 
 ### Prerequisites
 
@@ -51,8 +51,8 @@ This single command will:
 - Automatically prepare everything for local development
 
 Once running:
-- **Frontend (User Interface)**: http://localhost:3000
-- **Backend API**: http://localhost:8000
+- **Frontend**: http://localhost:3000
+- **Backend**: http://localhost:8000
 
 The Smart City Dashboard is now fully functional and ready to use!
 
