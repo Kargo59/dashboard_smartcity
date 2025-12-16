@@ -108,12 +108,10 @@ const [waterLevelLauterLandLiebenBattery, setWaterLevelLauterLandLiebenBattery] 
     ]);
 
 const map = (d) => ({
-  readings: d.data.readings.flatMap(item => 
-    item.timestamp != null && item.water_level_value != null 
-      ? [{ time: item.timestamp, value: item.water_level_value }] 
-      : []
-  ),
-  battery: d.data.battery
+  readings: (d.data.readings || [])
+    .filter(item => item?.timestamp != null && item?.water_level_value != null)
+    .map(item => ({ time: item.timestamp, value: item.water_level_value })),
+  battery: d.data?.battery
 });
 
 
