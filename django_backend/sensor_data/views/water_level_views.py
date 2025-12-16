@@ -43,11 +43,11 @@ class waterLevelDataView(View):
             device_ids = {
                 "water_level_kv": "eui-a8404169c187e059-water-lvl-kv",
                 "water_level_rutsweiler": "6749E17352790049",
-                "water_level_kreimbach_kaulbach": "6749E17125480048",           #by brauerei
+                "water_level_kreimbach_kaulbach": "6749E17125480048",
                 "water_level_wolfstein": "6749D19427550061",
                 "water_level_lauterecken_1": "6749E17530450043",
                 "water_level_kreimbach_1": "6749E09866560038",
-                "water_level_kreimbach_3": "6749E09611440028",          # sensor Kreimbach_2 (Kreimbach) (in canal / drainage pipe) 
+                "water_level_kreimbach_3": "6749E09611440028",
                 "water_level_lohnweiler_1": "6749E17323330042",
                 "water_level_hinzweiler_1": "6749E17419910043",
                 "water_level_untersulzbach": "pegel_untersulzbach",
@@ -61,54 +61,77 @@ class waterLevelDataView(View):
                 "water_level_odenbach": "pegel_odenbach",
                 "water_level_niedermohr": "pegel_niedermohr",
                 "water_level_loellbach": "pegel_loellbach",
-                "water_level_lohnweiler_lauter_landlieben": "6749E17799680048",        # sensor Lohnweiler (Lauter), installed on June 30, 2025, next to the official sensor of SGD Sued 
-
-
-
-
+                "water_level_lohnweiler_lauter_landlieben": "6749E17799680048",
             }
 
             device_id = device_ids.get(query_type)
             if not device_id:
                 return JsonResponse({"error": "Invalid query type"}, status=400)
 
-            try:
-                device = Device.objects.get(device_id=device_id)
-            except Device.DoesNotExist:
+            device = Device.objects.filter(device_id=device_id).first()
+            if not device:
                 return JsonResponse({"error": "Device not found"}, status=404)
 
-            # Get the time range from the request
-            time_range = request.GET.get("time_range", "24h")  # Default to '24h'
+            time_range = request.GET.get("time_range", "24h")
             now = timezone.now()
+            ranges = {
+                "24h": now - timezone.timedelta(hours=24),
+                "7d": now - timezone.timedelta(days=7),
+                "30d": now - timezone.timedelta(days=30),
+                "365d": now - timezone.timedelta(days=365),
+            }
+            time_boundary = ranges.get(time_range, ranges["24h"])
 
-            # Calculate the time boundary
-            if time_range == "24h":
-                time_boundary = now - timezone.timedelta(hours=24)
-            elif time_range == "7d":
-                time_boundary = now - timezone.timedelta(days=7)
-            elif time_range == "30d":
-                time_boundary = now - timezone.timedelta(days=30)
-            elif time_range == "365d":
-                time_boundary = now - timezone.timedelta(days=365)
+            # Always get the most recent reading (for other components)
+            latest_reading = (
+                waterLevelReading.objects.filter(device=device)
+                .order_by("-timestamp")
+                .first()
+            )
+            latest_battery = getattr(latest_reading, "battery", None)
+
+            # Apply aggregation only for long periods
+            if time_range in ["30d", "365d"]:
+                readings = (
+                    waterLevelReading.objects.filter(
+                        device=device, timestamp__gte=time_boundary
+                    )
+                    .annotate(period=TruncDate("timestamp"))
+                    .values("period")
+                    .annotate(avg_level=Avg("water_level_value"))
+                    .order_by("period")
+                )
+
+                response_data = [
+                    {"timestamp": r["period"], "water_level_value": r["avg_level"]}
+                    for r in readings
+                ]
+
             else:
-                time_boundary = now - timezone.timedelta(hours=24)  # Default to '24h' if invalid
+                readings = (
+                    waterLevelReading.objects.filter(
+                        device=device, timestamp__gte=time_boundary
+                    )
+                    .order_by("timestamp")
+                    .values("timestamp", "water_level_value")
+                )
+                response_data = list(readings)
 
-            # Filter readings by timestamp
-            readings = waterLevelReading.objects.filter(device=device, timestamp__gte=time_boundary).order_by('timestamp')
+            if not response_data:
+                return JsonResponse(
+                    {"message": "No data available for the selected time period."},
+                    status=204,
+                )
 
-            if readings.exists():
-                response_data = list(readings.values('timestamp', 'water_level_value'))
-
-                latest_reading = readings.last()
-                latest_battery = latest_reading.battery if latest_reading and latest_reading.battery is not None else None
-
-                return JsonResponse({
+            return JsonResponse(
+                {
                     "readings": response_data,
-                    "battery": latest_battery
-                }, safe=False)
-            else:
-                return JsonResponse({"message": "No data available for the selected time period."}, status=204)
-
+                    "battery": latest_battery,
+                    "latest_value": getattr(latest_reading, "water_level_value", None),
+                    "latest_timestamp": getattr(latest_reading, "timestamp", None),
+                },
+                safe=False,
+            )
 
         except Exception as e:
             logger.error(f"Error in water level data: {str(e)}")
