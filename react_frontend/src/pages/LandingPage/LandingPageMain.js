@@ -85,6 +85,24 @@ const MyJumbotron = () => {
 
     </motion.div>
     <div id='project-description'>
+
+        {/* INFO BANNER */}
+  <div
+    style={{
+      backgroundColor: "#fff3cd", // subtle yellow
+      border: "1px solid #ffeeba",
+      borderRadius: "8px",
+      padding: "16px",
+      marginBottom: "20px",
+      textAlign: "center",
+      fontWeight: "500",
+    }}
+  >
+    ⚠️ Diese Plattform wird nicht weiterentwickelt. Wir arbeiten an einer neuen Datenplattform, 
+    deren Einführung wir sehr bald ankündigen werden.
+  </div>
+
+  
     <ProjectDescription />
     <div className="row d-flex mt-5 mx-0 " style={{width: "100%",}}>
  
