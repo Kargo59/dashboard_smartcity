@@ -59,6 +59,22 @@ const MyJumbotron = () => {
   return (
     <AnimatePresence>
 <div>
+
+        {/* INFO BANNER */}
+      <div
+        style={{
+          backgroundColor: "#fff3cd",
+          border: "1px solid #ffeeba",
+          padding: "16px",
+          textAlign: "center",
+          fontWeight: "500",
+        }}
+      >
+        ⚠️ Diese Plattform wird nicht weiterentwickelt. Wir arbeiten an einer neuen Datenplattform,
+        deren Einführung wir sehr bald ankündigen werden.
+      </div>
+
+      
     <motion.div
       className="d-flex flex-column justify-content-center align-items-center text-light p-5"
       style={{
@@ -86,21 +102,7 @@ const MyJumbotron = () => {
     </motion.div>
     <div id='project-description'>
 
-        {/* INFO BANNER */}
-  <div
-    style={{
-      backgroundColor: "#fff3cd", // subtle yellow
-      border: "1px solid #ffeeba",
-      borderRadius: "8px",
-      padding: "16px",
-      marginBottom: "20px",
-      textAlign: "center",
-      fontWeight: "500",
-    }}
-  >
-    ⚠️ Diese Plattform wird nicht weiterentwickelt. Wir arbeiten an einer neuen Datenplattform, 
-    deren Einführung wir sehr bald ankündigen werden.
-  </div>
+
 
   
     <ProjectDescription />
