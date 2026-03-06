@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const Datenschutz = () => {
+
+
+  useEffect(() => {
+  const script = document.createElement("script");
+  script.src =
+    "https://matomo.land-lieben.de/index.php?module=CoreAdminHome&action=optOutJS&divId=matomo-opt-out&language=de&showIntro=1";
+  script.async = true;
+  document.body.appendChild(script);
+}, []);
+
+
+
   return (
     <Container>
       <Row>
@@ -129,6 +141,11 @@ const Datenschutz = () => {
             <p>
               Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.
             </p>
+            <h3>Matomo Opt-Out</h3>
+<p>
+  Sie können der anonymisierten Erfassung Ihres Besuchs durch Matomo widersprechen.
+</p>
+<div id="matomo-opt-out"></div>
           </div>
         </Col>
       </Row>
