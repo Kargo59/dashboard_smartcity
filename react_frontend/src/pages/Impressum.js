@@ -17,10 +17,10 @@ const ImpressumLayout = () => {
 
             <h3>Vertreten durch:</h3>
             <p>Kreisverwaltung Kusel</p>
-            <p>vertreten durch den Landrat Otto Rubly</p>
+            <p>vertreten durch den Landrat Johannes Huber</p>
 
             <h3>Kontakt:</h3>
-            <p>Otto Rubly</p>
+            <p>Johannes Huber</p>
             <p>Trierer Straße 49-51</p>
             <p>66869 Kusel</p>
             <p>Telefon: 06381/ 424-0</p>
@@ -28,14 +28,14 @@ const ImpressumLayout = () => {
 
             <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:</h3>
             <p>Kreisverwaltung Kusel</p>
-            <p>Landrat Otto Rubly</p>
+            <p>Landrat Johannes Huber</p>
             <p>Trierer Straße 49-51</p>
             <p>66869 Kusel</p>
             <p>Telefon: +49 6381 424 0</p>
             <p>Telefax: +49 6381 424 440</p>
             <p>E-Mail: buergerbuero@kv-kus.de</p>
             <p>Internet: <a href="https://www.landkreis-kusel.de" target="_blank" rel="noopener noreferrer">https://www.landkreis-kusel.de</a></p>
-            <p>Der Landkreis Kusel ist eine Körperschaft des Öffentlichen Rechts. Der Landkreis wird vertreten durch Herrn Landrat Otto Rubly.</p>
+            <p>Der Landkreis Kusel ist eine Körperschaft des Öffentlichen Rechts. Der Landkreis wird vertreten durch Herrn Landrat Johannes Huber.</p>
 
             <h3>Webhostinganbietende</h3>
             <p>Django Backend:</p>
